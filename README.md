@@ -76,7 +76,7 @@ sudo apt install openjdk-21-jdk
 sudo apt install postgresql postgresql-contrib
 ```
 
-#### Налашування бази даних PostgreSQL
+#### Налаштування бази даних PostgreSQL
 
 ```bash
 sudo -i -u postgres psql
@@ -126,7 +126,7 @@ sudo bash mvnw -N wrapper:wrapper
 
 #### Налаштування підключення до БД в проєкті
 
-Відкрити файл конфігурації застосунку Spring `./SpringWS/src/main/resources/application.properties` та встановити коректні параметри підключення до БД - ім'я бази, ім'я та пароль користувача згідно значень, заданих на кроці налаштування бази даних PostgreSQL. Наприклад:
+Відкрити файл конфігурації застосунку Spring `./SpringWS/src/main/resources/application.properties` та встановити коректні параметри підключення до БД - ім'я бази, ім'я та пароль користувача згідно значень, заданих на [кроці налаштування бази даних PostgreSQL](#налаштування-бази даних-postgresql). Наприклад:
 ```
 spring.datasource.url=jdbc:postgresql://localhost:5432/dbname
 spring.datasource.username=dbusername
