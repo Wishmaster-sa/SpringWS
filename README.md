@@ -78,14 +78,15 @@ sudo apt install postgresql postgresql-contrib
 
 #### Налаштування бази даних PostgreSQL
 
+Оберіть назву та створіть бази даних, логін та пароль користувача для підключення до неї. Ці параметри також мають бути задані у відповідному файлі конфігурації застосунку Spring - application.settings.
 ```bash
 sudo -i -u postgres psql
 ```
-CREATE DATABASE dbname;
+CREATE DATABASE db_spring;
 
-CREATE ROLE dbusername LOGIN PASSWORD 'dbuserpassword';
+CREATE ROLE spring LOGIN PASSWORD 'pass';
 
-GRANT ALL PRIVILEGES ON DATABASE dbname TO dbusername;
+GRANT ALL PRIVILEGES ON DATABASE db_spring TO spring;
 
 Для вихода з командного рядку БД psql введіть \q
 
