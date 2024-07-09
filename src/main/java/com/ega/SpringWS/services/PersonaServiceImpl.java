@@ -55,7 +55,7 @@ public class PersonaServiceImpl implements PersonaInterface{
             
             //якщо виклик функції не перервався помилкою, то вважаємо його успішним, та записуємо в Статус відповіді
             ans.setStatus(Boolean.TRUE);            
-            ans.setDescr("Successfully request");   //В описі відповіді зазначаємо, що запит успішний.
+            ans.setDescr("Successful request");   //В описі відповіді зазначаємо, що запит успішний.
             JSONArray arr = new JSONArray();
             for(int i = 0;i<result.size();i++){
                 JSONObject jsData=new JSONObject();
@@ -86,7 +86,7 @@ public class PersonaServiceImpl implements PersonaInterface{
             Persona result = repository.save(persona);
             //якщо виклик функції не перервався помилкою, то вважаємо його успішним, та записуемо в Статус відповіді
             ans.setStatus(Boolean.TRUE);            
-            ans.setDescr("Successfully request");   //В описі відповіді зазначаємо, що запит успішний.
+            ans.setDescr("Successful request");   //В описі відповіді зазначаємо, що запит успішний.
             ans.setResult(result.toJSON().toString());       //Тут результат відповіді.
           }catch (Exception ex){                    //якщо помилка
               ans.setDescr(ex.getMessage());        //надаємо опис помилки
@@ -112,7 +112,7 @@ public class PersonaServiceImpl implements PersonaInterface{
             if(result==null){
                 ans.setDescr("Person with RNOKPP: "+rnokpp+" not found in database");   //В описі відповіді зазначаємо, що запит успішний.
             }else{
-                ans.setDescr("Successfully request");   //В описі відповіді зазначаємо, що запит успішний.
+                ans.setDescr("Successful request");   //В описі відповіді зазначаємо, що запит успішний.
                 ans.setResult(result.toJSON().toString());       //Тут результат відповіді.
             }
           }catch (Exception ex){                    //якщо помилка
@@ -139,7 +139,7 @@ public class PersonaServiceImpl implements PersonaInterface{
                 var result = repository.save(persona);
                 //якщо виклик функції не перервався помилкою, то вважаємо його успішним, та записуемо в Статус відповіді
                 ans.setStatus(Boolean.TRUE);            
-                ans.setDescr("Successfully request");   //В описі відповіді зазначаємо, що запит успішний.
+                ans.setDescr("Successful request");   //В описі відповіді зазначаємо, що запит успішний.
                 ans.setResult(result.toJSON().toString());       //Тут результат відповіді.
             }catch (Exception ex){                    //якщо помилка
               ans.setDescr(ex.getMessage());        //надаємо опис помилки
@@ -164,7 +164,7 @@ public class PersonaServiceImpl implements PersonaInterface{
             repository.deleteByRnokpp(rnokpp);
             //якщо виклик функції не перервався помилкою, то вважаємо його успішним, та записуемо в Статус відповіді
             ans.setStatus(Boolean.TRUE);
-            ans.setDescr("Successfully request");   //В описі відповіді зазначаємо, що запит успішний.
+            ans.setDescr("Successful request");   //В описі відповіді зазначаємо, що запит успішний.
             ans.setResult("Persona with RNOKPP: "+rnokpp+" was deleted!");  //Тут результат відповіді.
           }catch (Exception ex){                    //якщо помилка
               ans.setDescr(ex.getMessage());        //надаємо опис помилки
@@ -183,7 +183,7 @@ public class PersonaServiceImpl implements PersonaInterface{
           try{
             Persona persona = repository.findByRnokpp(rnokpp);
             ans.setStatus(Boolean.TRUE);            
-            ans.setDescr("Successfully request");   //В описі відповіді вказуемо що запит успішний.
+            ans.setDescr("Successful request");   //В описі відповіді вказуемо що запит успішний.
             if(persona == null){
                 ans.setResult("Persona with rnokpp "+rnokpp+" not found in database!");       //Тут результат відповіді.                
             }else{
@@ -210,7 +210,7 @@ public class PersonaServiceImpl implements PersonaInterface{
           try{
             Persona persona = repository.findByRnokpp(rnokpp);
             ans.setStatus(Boolean.TRUE);            
-            ans.setDescr("Successfully request");   //В описі відповіді зазначаємо, що запит успішний.
+            ans.setDescr("Successful request");   //В описі відповіді зазначаємо, що запит успішний.
             if(persona == null){
                 ans.setResult("Persona with rnokpp "+rnokpp+" not found in database!");       //Тут результат відповіді.                
             }else if(persona.getIsChecked()==true){
@@ -275,7 +275,7 @@ public class PersonaServiceImpl implements PersonaInterface{
             if(result.isEmpty()){
                 ans.setDescr("Person with firstName: "+firstName+" not found in database");   //В описі відповіді вказуемо що запит успішний.
             }else{
-                ans.setDescr("Successfully request");   //В описі відповіді зазначаємо, що запит успішний.
+                ans.setDescr("Successful request");   //В описі відповіді зазначаємо, що запит успішний.
                 ans.setResult(Persona.listToJSON(result).toString());       //Тут результат відповіді.
             }
           }catch (Exception ex){                    //якщо помилка
@@ -300,7 +300,7 @@ public class PersonaServiceImpl implements PersonaInterface{
             if(result.isEmpty()){
                 ans.setDescr("Person with firstName: "+firstName+" not found in database");   //В описі відповіді зазначаємо, що запит успішний.
             }else{
-                ans.setDescr("Successfully request");   //В описі відповіді зазначаємо, що запит успішний.
+                ans.setDescr("Successful request");   //В описі відповіді зазначаємо, що запит успішний.
                 ans.setResult(Persona.listToJSON(result).toString());       //Тут результат відповіді.
             }
           }catch (Exception ex){                    //якщо помилка
@@ -326,7 +326,7 @@ public class PersonaServiceImpl implements PersonaInterface{
             if(result.isEmpty()){
                 ans.setDescr("Person with firstName: "+firstName+" not found in database");   //В описі відповіді зазначаємо, що запит успішний.
             }else{
-                ans.setDescr("Successfully request");   //В описі відповіді зазначаємо, що запит успішний.
+                ans.setDescr("Successful request");   //В описі відповіді зазначаємо, що запит успішний.
                 ans.setResult(Persona.listToJSON(result).toString());       //Тут результат відповіді.
             }
           }catch (Exception ex){                    //якщо помилка
@@ -354,7 +354,7 @@ public class PersonaServiceImpl implements PersonaInterface{
             if(result.isEmpty()){
                 ans.setDescr("Person with age beetween "+startAge+" and "+endAge+ " not found in database");   //В описі відповіді вказуемо що запит успішний.
             }else{
-                ans.setDescr("Successfully request");   //В описі відповіді зазначаємо, що запит успішний.
+                ans.setDescr("Successful request");   //В описі відповіді зазначаємо, що запит успішний.
                 ans.setResult(Persona.listToJSON(result).toString());       //Тут результат відповіді.
             }
           }catch (Exception ex){                    //якщо помилка
