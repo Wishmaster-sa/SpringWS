@@ -19,10 +19,10 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class LogRecordService implements LogRecordInterface{
-    //ініціалізуем файл налаштувань
+    //ініціалізація файлу налаштувань
     private final AppSettings appSettings = new AppSettings();
 
-    //повний шлях до файла лога
+    //повний шлях до файлу лога
     private final String logFileName = appSettings.getLogFileName();
     //рівень логування.
     private final int logLevel = appSettings.getLogLevel();
@@ -31,9 +31,9 @@ public class LogRecordService implements LogRecordInterface{
     public Boolean addRecord(LogRecord record) {
         
         switch(logLevel){
-            case 0 -> AddRecordLevel0(record); //немає лога
+            case 0 -> AddRecordLevel0(record); //немає логування
             case 1 -> AddRecordLevel1(record); //тільки помилки
-            case 2 -> AddRecordLevel2(record); //всі повідомлення, але без тіла запита та без тіла відповіді.
+            case 2 -> AddRecordLevel2(record); //всі повідомлення, але без тіла запиту та без тіла відповіді.
             case 3 -> AddRecordLevel3(record); //повний лог.
         }
         
@@ -53,19 +53,19 @@ public class LogRecordService implements LogRecordInterface{
         WriteDataToLogFile(record.toJSON().toString());
     }
 
-    //Level 2 - логує помилки, запити, но не включає до себе тіло запиту та повну відподідь.
+    //Level 2 - логує помилки, запити, але не включає до себе тіло запиту та повну відподідь.
     private void AddRecordLevel2(LogRecord record) {
         record.setBody("");
         record.setResult(null);
         WriteDataToLogFile(record.toJSON().toString());
     }
 
-    //Level 3 - детально логує всі запити та відповіді.
+    //Level 3 - детально логує всі запити та відповіді включно з їх вмістом.
     private void AddRecordLevel3(LogRecord record) {
         WriteDataToLogFile(record.toJSON().toString());
     }
 
-    //Безпосередьно записує лог в файл
+    //Безпосередньо записує лог в файл
     private void WriteDataToLogFile(String toString) {
         BufferedWriter writer;
         try {

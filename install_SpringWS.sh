@@ -6,7 +6,7 @@ db_name=db_spring
 netbeans19=apache-netbeans_19-1_all.deb 
 
 if [[ $EUID -ne 0 ]]; then
-    echo "Для выполнения скрипта нужны права sudo, запустите скрипт с правами суперпользователя"
+    echo "Скрипт потрібно запускати з правами root (додайте sudo перед командою)"
     exit 1
 fi
 
@@ -65,9 +65,9 @@ if [[ "$_java" ]]; then
     version=$("$_java" -version 2>&1 | awk -F '"' '/version/ {print $2}')
     echo version "$version"
     if [[ "$version" > "17" ]]; then
-        echo version is more than 17
+        echo version is higher than 17
     else         
-        echo version is less than 17
+        echo version is 17 or less, updating to 21
 	sudo apt install openjdk-21-jdk -y
     fi
 fi
@@ -115,7 +115,7 @@ echo "**************************************************************************
 sudo apt install curl -y
 
 echo "******************************************************************************
-*                  завантажуемо Apache NetBeans 19
+*                  завантаження Apache NetBeans 19
 ******************************************************************************"
 if [ -f ./$netbeans19 ]; then
 	echo "середовище вже завантажено"

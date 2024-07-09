@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.ServletComponentScan;
 
 @ServletComponentScan
-//Ця анотація говорить Спрингу, що це основний клас який запускає наш Веб-додаток
+//Ця анотація говорить Спрингу, що це основний клас, який запускає наш Веб-додаток
 @SpringBootApplication
 public class SpringWsApplication {
 

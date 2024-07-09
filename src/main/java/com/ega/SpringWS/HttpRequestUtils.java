@@ -13,7 +13,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
  * @author sa
  */
 
-//перелік заголовків в яких можна отримати IP 
+//перелік HTTP заголовків, з яких можна отримати IP клієнта
 public class HttpRequestUtils {
     private static final String[] IP_HEADER_CANDIDATES = {
         "X-Forwarded-For",
@@ -30,8 +30,8 @@ public class HttpRequestUtils {
         "REMOTE_ADDR"
     };
 
-    //повертає IP, для цього спочатку перевіряємо заголовки на наявність в них ІР адреси (якщо використовується проксі)
-    //а вже потім якщо в заголовках нічого немає, отримаємо ІР безпосередьно з запита.
+    //повертає IP клієнта, для цього спочатку перевіряємо HTTP заголовки на наявність в них ІР адреси (якщо використовується проксі)
+    //якщо в заголовках нічого немає, встановлюємо ІР адресу мережевого вузла, що передав запит.
     public static String getClientIpAddress() {
 
         if (RequestContextHolder.getRequestAttributes() == null) {
@@ -59,7 +59,7 @@ public class HttpRequestUtils {
         return request.getMethod();
     }
 
-    //повертає шлях на який здійснювався запит
+    //повертає URL шлях запиту
     public static String getPath() {
 
         HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();

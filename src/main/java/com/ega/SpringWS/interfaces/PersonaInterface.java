@@ -8,7 +8,7 @@ import com.ega.SpringWS.models.Answer;
 import com.ega.SpringWS.models.Persona;
 
 /**
- * Це інтерфейс - клас який задає, які процедури та функціі буде єкспорувати наша програма.
+ * Це інтерфейс - клас який задає, які процедури та функції буде експорувати наша програма.
  */
 public interface PersonaInterface {
    public Answer showAllPersons();

@@ -9,9 +9,9 @@ import lombok.Data;
 import org.json.JSONObject;
 
 /**
- * Це модель запису в лог-файл. 
- * Він містить інформацію стосовно часу коли відбулася подія, IP, HTTP метод, ресурс який запрошував запит та все інше.
- * @author E-Rigi Academy
+ * Це клас моделі даних для запису в лог-файл.
+ * Він містить інформацію стосовно часу, коли відбулася подія, IP адреси клієнта, HTTP метод запиту, URL запиту та інші параметри.
+ * @author sa
  */
 @Data
 public class LogRecord {
@@ -24,7 +24,7 @@ public class LogRecord {
     private String descr;
     private Answer result;
 
-    //Конструктор класу замовчки
+    //Конструктор класу за замовчуванням
     public LogRecord(){
         this.dateTime = LocalDateTime.now();
         this.ip = "localhost";

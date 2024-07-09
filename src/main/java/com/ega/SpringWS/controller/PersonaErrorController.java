@@ -27,9 +27,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 
 /**
- * Це контроллер який викликається в разі будь-яких непередбачених помилок
- * має дві реалізаціі, якщо запит йде з браузера, то викликається обробник який формує html відповідь
- * інакше якщо запит йде з іншого клієнта, то викликається обробник який формує json відповідь
+ * Це контролер, який викликається в разі будь-яких непередбачених помилок
+ * має дві реалізаціі, якщо запит йде з веб-браузера, то викликається обробник, який формує html відповідь
+ * інакше, якщо запит йде з іншого типу клієнта, то викликається обробник, який формує json відповідь
  */
 @Controller
 public class PersonaErrorController implements ErrorController{
@@ -96,7 +96,7 @@ public class PersonaErrorController implements ErrorController{
         return ERROR_PATH;
     }
 
-    //отримуем атрібути помилки якщо помилку отримуємо як JSON
+    //отримуємо атрибути помилки, якщо помилку віддаємо як JSON об'єкт
     private Map<String, Object> getErrorAttributes(HttpServletRequest request,
                                                    ErrorAttributeOptions options) {
 
@@ -105,7 +105,7 @@ public class PersonaErrorController implements ErrorController{
     
     }
     
-    //отримуем атрібути помилки якщо помилку отримуємо як HTTP
+    //отримуємо атрибути помилки, якщо помилку віддаємо як HTML сторінку
     private Map<String, Object> getHttpErrorAttributes(HttpServletRequest request,
                                                    ErrorAttributeOptions options) {
         RequestAttributes requestAttributes = new ServletRequestAttributes(request);

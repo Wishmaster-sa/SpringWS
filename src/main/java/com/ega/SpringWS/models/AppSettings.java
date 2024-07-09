@@ -13,8 +13,8 @@ import lombok.Data;
 import org.json.JSONObject;
 
 /**
- * Цей клас налаштувань. 
- * Налаштування йдуть з файла-налаштувань який називається webservice.settings, дані в ньому зберігаються в форматі JSON
+ * Це клас налаштувань. 
+ * Налаштування зчитуються з файлу налаштувань з назвою webservice.settings, дані в ньому зберігаються в форматі JSON
  * @author sa
  */
 @Data
@@ -22,7 +22,7 @@ public class AppSettings {
     private String logFileName;
     private int logLevel;
     
-    //конструктор класу замовчки
+    //Конструктор класу за замовчуванням
     public AppSettings() {
         this.logFileName ="springWS.log";
         this.logLevel = 0;
@@ -34,9 +34,9 @@ public class AppSettings {
           FileWriter settingsFile = new FileWriter("webservice.settings");
           settingsFile.write(this.toJSON().toString());
           settingsFile.close();
-          System.out.println("Successfully create settings file.");
+          System.out.println("Successfully created settings file.");
         } catch (IOException e) {
-          System.out.println("An error occurred while setting file created\n"+e.getMessage());
+          System.out.println("An error occurred while creating settings file\n"+e.getMessage());
         }
     
     }
@@ -53,7 +53,7 @@ public class AppSettings {
             myReader.close();
            } catch (FileNotFoundException e) {
              SaveSettings();
-             System.out.println("An error occurred while load settings file: "+e.getMessage());
+             System.out.println("An error occurred while loading settings file: "+e.getMessage());
            }
         
         try{
@@ -66,7 +66,7 @@ public class AppSettings {
         
     }
     
-    //метод який перетворює об'єкт в JSON
+    //метод, який перетворює об'єкт класу в JSON
     public JSONObject toJSON(){
         JSONObject ret = new JSONObject();
         ret.put("logFileName", logFileName);
@@ -75,7 +75,7 @@ public class AppSettings {
         return ret;
     }
 
-    //метод який перетворює JSON в об'єкт класу
+    //метод, який перетворює JSON в об'єкт класу
     public AppSettings fromJSON(JSONObject json){
        
         this.setLogFileName(json.optString("logFileName", ""));

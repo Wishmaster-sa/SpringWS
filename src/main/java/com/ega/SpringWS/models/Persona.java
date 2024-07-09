@@ -20,25 +20,25 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 /**
- * Цей клас задає модель людини, та його свойства (ім'я, фамілію, дату народження, вік, та т.д.) 
+ * Цей клас задає модель інформаційного об'єкта - користувача, та його поля (ім'я, прізвище, дату народження, вік тощо)
  */
-//Ця анотація надає можливість автоматично формувати конструктор класу, та реалізує встановлення та отримання всіх членів класу.
+//Ця анотація надає можливість автоматично формувати конструктор класу, та реалізує встановлення та отримання всіх полів класу.
 @Data
 // The @Builder annotation produces complex builder APIs for your classes.
 // Builder lets you automatically produce the code required to have your class be instantiable with code
 //@Builder
 
-//Анотація @Entity говорить SPRINGу що цю сутність треба включити до бази данних. 
-//Так як у нас анотація відноситься до всього класу - це означає що на базі класу буде створена таблиця в БД
+//Анотація @Entity говорить SPRINGу що цю сутність потрібно включити до бази даних.
+//Так як у нас анотація відноситься до всього класу - це означає, що на базі класу буде створена таблиця в БД
 //Докладніше https://www.baeldung.com/jpa-entities
 @Entity
 
-//Задає назву таблиці. Якщо ця анотація не існує, то назва таблиці буде дублювати назву класа.
+//Задає назву таблиці. Якщо ця анотація не задана, то назва таблиці буде дублювати назву класу.
 @Table(name="Persona")
 public class Persona {
-    //Ця анотація вказує, що наступний член класу буде виконувати роль ідентіфікатора в БД    
+    //Ця анотація зазначає, що наступне поле класу буде виконувати роль ідентіфікатора в БД    
     @Id
-    //Говорить що ідентіфікатор буде генеруватись автоматично
+    //Говорить, що ідентіфікатор наступного поля класу буде генеруватись автоматично
     @GeneratedValue
     private Long id;
     private String firstName;
@@ -46,15 +46,17 @@ public class Persona {
     private String patronymic;
     private LocalDate birthDate;
     private String pasport;
+    //Говорить, що наступне поле потрібно зробити унікальним в БД
+    @Column(unique = true)
     private String unzr;                    //УНЗР
-    private Boolean isChecked;              //персона перевірена
-    private LocalDateTime CheckedRequest;   //коли був запит на перевірку персони
+    private Boolean isChecked;              //ознака опрацювання запису оператором вручну (для прикладу асинхронних запитів-відповідей)
+    private LocalDateTime CheckedRequest;   //коли був запит на перевірку користувача
     
-    //Говорить що наступне поле потрібно зробити унікальним в БД
+    //Говорить, що наступне поле потрібно зробити унікальним в БД
     @Column(unique = true)
 //    @NonNull
     private String rnokpp;
-    //Говорить що це поле буде розраховуватись
+    //Говорить, що значення цього поля буде розраховуватись автоматично
     @Transient
     private int age;
     
@@ -69,7 +71,7 @@ public class Persona {
         this.CheckedRequest = LocalDateTime.of(1, 1, 1,0,0,0);
     }
     
-    // перевизначення функції отримання возрасту. Отримаєм возраст як різницю кількості років між
+    // перевизначення функції отримання віку. Отримуємо вік як різницю кількості років між
     // поточним роком та роком народження.
     public int getAge(){
         if((birthDate == null)||(birthDate==LocalDate.of(1, 1, 1))){
@@ -77,7 +79,7 @@ public class Persona {
         }else return LocalDate.now().getYear() - birthDate.getYear();
     }
 
-    //метод який перетворює персону в JSON об'єкт
+    //метод, який перетворює об'єкт класу користувача на JSON об'єкт
     public JSONObject toJSON(){
         JSONObject jsData=new JSONObject();
         //Persona persona = result.get(i);
@@ -96,28 +98,28 @@ public class Persona {
         return jsData;
     }  
     
-    //метод який перетворюе список персон в масив JSON
+    //метод, який перетворює список користувачів на масив JSON
     public static JSONArray listToJSON(List <Persona> personsList){
         JSONArray persons = new JSONArray(personsList);
         
         return persons;
     } 
     
-    //Метод який перевіряє персону на правильну заповненність усіх полів
+    //Метод, який перевіряє об'єкт користувача на правильність заповнення усіх полів
     public static Answer isValid(Persona persona){
         //создаємо об'єкт класу відповідь
         Answer ret = Answer.builder().status(true).build();
         
         //Валідуємо ім'я (має містити тількі велики та маленькі літери, апостроф та дефіс)
-        ret = isValidStr(persona.getFirstName(),"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ-'абвгдеєжзійклмнопрстуфхцчшщиьюяАБВГДЕЄЖЗІЙКЛМНОПРСТУФХЦЧШЩИЬЮЯ",0);
+        ret = isValidStr(persona.getFirstName(),"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ-'абвгґдеєжзиіїйклмнопрстуфхцчшщьюяАБВГҐДЕЄЖЗИІЇЙКЛМНОПРСТУФХЦЧШЩЬЮЯ",0);
         if(!ret.getStatus())return ret;
         
         //Валідуємо призвіще (має містити тількі велики та маленькі літери, апостроф та дефіс)
-        ret = isValidStr(persona.getLastName(),"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ-'абвгдеєжзійклмнопрстуфхцчшщиьюяАБВГДЕЄЖЗІЙКЛМНОПРСТУФХЦЧШЩИЬЮЯ",0);
+        ret = isValidStr(persona.getLastName(),"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ-'абвгґдеєжзиіїйклмнопрстуфхцчшщьюяАБВГҐДЕЄЖЗИІЇЙКЛМНОПРСТУФХЦЧШЩЬЮЯ",0);
         if(!ret.getStatus())return ret;
 
-        //Валідуємо по-батькові (має містити тількі велики та маленькі літери, апостроф та дефіс)
-        ret = isValidStr(persona.getPatronymic(),"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ-'абвгдеєжзійклмнопрстуфхцчшщиьюяАБВГДЕЄЖЗІЙКЛМНОПРСТУФХЦЧШЩИЬЮЯ",0);
+        //Валідуємо по батькові (має містити тількі велики та маленькі літери, апостроф та дефіс)
+        ret = isValidStr(persona.getPatronymic(),"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ-'абвгґдеєжзиіїйклмнопрстуфхцчшщьюяАБВГҐДЕЄЖЗИІЇЙКЛМНОПРСТУФХЦЧШЩЬЮЯ",0);
         if(!ret.getStatus())return ret;
         
         //Валідуємо РНОКПП (має містити тількі 10 цифр)
@@ -128,7 +130,7 @@ public class Persona {
         ret = isValidPasport(persona.getPasport());
         if(!ret.getStatus())return ret;
 
-        //Валідуємо УНЗР (може двох варіантів, або тільки цифри, або 8 цифр + дефіс + ще 5 цифр)
+        //Валідуємо УНЗР (може двух двох варіантів: або тільки цифри, або 8 цифр + дефіс + ще 5 цифр)
         ret = isValidUnzr(persona.getUnzr());
         
         return ret;
