@@ -46,6 +46,8 @@ public class Persona {
     private String patronymic;
     private LocalDate birthDate;
     private String pasport;
+    //Говорить, що наступне поле потрібно зробити унікальним в БД
+    @Column(unique = true)
     private String unzr;                    //УНЗР
     private Boolean isChecked;              //ознака опрацювання запису оператором вручну (для прикладу асинхронних запитів-відповідей)
     private LocalDateTime CheckedRequest;   //коли був запит на перевірку користувача
